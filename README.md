@@ -6,123 +6,204 @@ NyayaPath AI is an AI-powered legal guidance platform designed to help citizens 
 
 Instead of searching through complex legal information, users can describe their problem in natural language and receive a structured explanation, actionable roadmap, relevant authorities, supporting sources, and document-generation assistance.
 
-> **Note:** NyayaPath AI provides informational guidance and is not a substitute for professional legal advice.
+> ⚠️ **Disclaimer:** NyayaPath AI provides informational and educational guidance only. It is not a substitute for professional legal advice.
 
 ---
 
-## 🚨 Problem
+## 🚨 Problem Statement
 
 For many citizens, accessing legal and civic information is difficult because:
 
 - Legal language is complex and difficult to understand.
 - People often do not know which authority or department to approach.
-- Finding the correct next step can require searching through multiple sources.
+- Finding the correct next step may require searching through multiple sources.
 - Citizens may not know what documents or evidence they should prepare.
-- Existing legal information is often fragmented across different platforms.
+- Relevant legal and civic information is fragmented across different platforms.
 - Language barriers make legal information less accessible.
 
-This creates a gap between **knowing that a problem exists** and **knowing what to do next**.
+This creates a gap between:
+
+> **"I have a problem" → "I know exactly what to do next."**
+
+NyayaPath AI aims to bridge this gap.
 
 ---
 
 ## 💡 Our Solution
 
-NyayaPath AI converts a citizen's problem into a structured action plan.
+NyayaPath AI converts a citizen's problem into a structured and actionable guidance path.
 
-### User Flow
+### User Journey
 
-**Describe Problem → AI Analysis → Legal/Civic Category → Explanation → Action Roadmap → Relevant Authority → Supporting Sources → Document Assistance**
+**Describe Problem → AI Analysis → Category Detection → Problem Explanation → Action Roadmap → Authority Identification → Supporting Sources → Document Assistance**
 
 The platform is designed to make legal and civic guidance:
 
-- Simple
-- Action-oriented
-- Accessible
-- Localized
-- Multilingual
+- 🧠 Simple
+- 🗺️ Action-oriented
+- 🏛️ Authority-aware
+- 📚 Source-supported
+- 🌐 Multilingual
+- 📍 Context-aware
+- 🛡️ Resilient through fallback support
 
 ---
 
 ## ✨ Key Features
 
 ### 🧠 AI-Powered Problem Analysis
-Users can describe their issue in natural language.
 
-The system identifies the relevant category and generates a structured understanding of the problem.
+Users can describe their legal or civic issue in natural language.
+
+The system analyzes the problem and generates a structured response including the relevant category, summary, and recommended actions.
+
+---
 
 ### 🗺️ Action Roadmap
-Instead of only explaining the issue, NyayaPath AI provides step-by-step actions that a citizen can follow.
+
+NyayaPath AI goes beyond simply explaining a legal issue.
+
+It provides a structured, step-by-step roadmap so users can understand:
+
+- What to do first
+- What evidence/documents may be useful
+- Which authority to approach
+- What action can be taken next
+
+---
 
 ### 🏛️ Authority Finder
-Helps users identify the relevant authority or department for their issue.
+
+Helps users identify the relevant government authority, department, or organization associated with their issue.
+
+This reduces the uncertainty of:
+
+> **"Where should I complain?"**
+
+---
 
 ### 📚 Sources Directory
-Provides supporting legal/civic sources related to the generated guidance.
+
+The platform provides supporting legal and civic sources related to the generated guidance.
+
+This helps users explore the underlying information instead of relying only on an AI-generated response.
+
+---
 
 ### 📄 Document Generation
-The platform can generate structured documents based on the user's problem and selected language.
+
+NyayaPath AI can generate structured documents based on the user's problem.
+
+Potential use cases include:
+
+- Complaint drafts
+- Applications
+- Requests
+- Legal/civic representations
+
+The generated content is intended as a starting point and should be reviewed before submission.
+
+---
 
 ### 🌐 Multilingual Interaction
-Supports user inputs in:
+
+The platform supports interaction in:
 
 - English
 - Hindi
 - Hinglish
 
-### 📍 Location-Aware Guidance
-The platform accepts state and city information to make guidance more context-aware.
-
-### 🛡️ Fallback Mechanism
-A fallback response system is included so that the application can continue providing structured guidance when AI services are unavailable.
-
-### ⚠️ Legal Disclaimer
-The platform clearly communicates that its output is informational guidance and should not be treated as professional legal advice.
+This improves accessibility for users who may not be comfortable with formal legal English.
 
 ---
 
-## 🏗️ System Architecture
+### 📍 Location-Aware Guidance
+
+Users can provide:
+
+- State
+- City
+
+This allows the system to consider the user's location while generating relevant guidance and identifying authorities.
+
+---
+
+### 🛡️ Fallback Mechanism
+
+NyayaPath AI includes a fallback response mechanism.
+
+If the external AI service is unavailable or fails, the application can still provide structured predefined guidance for supported scenarios.
+
+This improves prototype reliability and user experience.
+
+---
+
+### ⚠️ Safety & Legal Disclaimer
+
+The platform clearly communicates that its output is informational guidance and should not be treated as professional legal advice.
+
+Users are encouraged to verify important legal information and consult a qualified professional where necessary.
+
+---
+
+# 🏗️ System Architecture
 
 ```text
-                    ┌──────────────────────┐
-                    │      User Input      │
-                    │ Problem + Language   │
-                    │ State + City         │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   React Frontend     │
-                    │       + Vite         │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │   Express Backend    │
-                    │      REST APIs       │
-                    └──────────┬───────────┘
-                               │
-                 ┌─────────────┴─────────────┐
-                 │                           │
-                 ▼                           ▼
-       ┌──────────────────┐       ┌──────────────────┐
-       │   AI Analysis    │       │ Fallback System  │
-       │     Service      │       │                  │
-       └────────┬─────────┘       └────────┬─────────┘
-                │                          │
-                └────────────┬─────────────┘
-                             ▼
-                  ┌──────────────────────┐
-                  │ Structured Response  │
-                  │                      │
-                  │ • Category           │
-                  │ • Summary            │
-                  │ • Roadmap            │
-                  │ • Authorities        │
-                  │ • Sources            │
-                  │ • Documents          │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │    User Interface    │
-                  └──────────────────────┘
+                         ┌─────────────────────────┐
+                         │       USER INPUT        │
+                         │                         │
+                         │  Problem + Language     │
+                         │  State + City           │
+                         └────────────┬────────────┘
+                                      │
+                                      ▼
+                         ┌─────────────────────────┐
+                         │     REACT FRONTEND      │
+                         │        + VITE           │
+                         │                         │
+                         │  User Interface         │
+                         │  Analysis UI            │
+                         │  Roadmap UI             │
+                         │  Authority Finder       │
+                         │  Documents UI           │
+                         └────────────┬────────────┘
+                                      │
+                                      │ REST API
+                                      ▼
+                         ┌─────────────────────────┐
+                         │    EXPRESS BACKEND      │
+                         │                         │
+                         │      REST APIs          │
+                         └────────────┬────────────┘
+                                      │
+                         ┌────────────┴────────────┐
+                         │                         │
+                         ▼                         ▼
+              ┌─────────────────────┐   ┌─────────────────────┐
+              │    AI SERVICE       │   │   FALLBACK SYSTEM   │
+              │                     │   │                     │
+              │ Problem Analysis    │   │ Predefined          │
+              │ Structured Output   │   │ Guidance            │
+              │ Document Generation │   │                     │
+              └──────────┬──────────┘   └──────────┬──────────┘
+                         │                         │
+                         └────────────┬────────────┘
+                                      ▼
+                         ┌─────────────────────────┐
+                         │   STRUCTURED RESPONSE   │
+                         │                         │
+                         │ • Category              │
+                         │ • Summary               │
+                         │ • Action Roadmap        │
+                         │ • Authorities           │
+                         │ • Sources               │
+                         │ • Document Assistance   │
+                         └────────────┬────────────┘
+                                      │
+                                      ▼
+                         ┌─────────────────────────┐
+                         │     USER INTERFACE      │
+                         │                         │
+                         │ Clear, actionable and   │
+                         │ accessible guidance     │
+                         └─────────────────────────┘
