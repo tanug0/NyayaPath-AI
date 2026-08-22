@@ -30,5 +30,5 @@ app.get('/', (req, res) => {
 
 // Start listening
 app.listen(PORT, () => {
-  console.log(`[NyayaPath AI Server] Listening on http://localhost:${PORT}`);
+  console.log(`[NyayaPath AI Server] Listening on https://nyayapath-ai-backend.onrender.com:${PORT}`);
 });

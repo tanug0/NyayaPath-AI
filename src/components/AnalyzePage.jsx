@@ -57,7 +57,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
     setConnectionError(false);
 
     try {
-      const response = await fetch('http://localhost:5000/api/analyze', {
+      const response = await fetch('https://nyayapath-ai-backend.onrender.com/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
