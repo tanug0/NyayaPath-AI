@@ -20,7 +20,7 @@ Instead of searching through complex legal information and multiple government p
 
 ## 📂 GitHub Repository
 
-🔗 **[NyayaPath AI – GitHub](https://youtu.be/yBD66sQQrSs?si=VrP-qkCw_ABQ8Fj_)**
+🔗 **[NyayaPath AI – GitHub](https://github.com/tanug0/NyayaPath-AI)**
 
 ---
 
