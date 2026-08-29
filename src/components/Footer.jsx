@@ -1,6 +1,5 @@
 import React from 'react';
-import { Scale, Heart, Shield, Award } from 'lucide-react';
-import DisclaimerBanner from './DisclaimerBanner';
+import { Scale, Shield } from 'lucide-react';
 
 export default function Footer({ setActiveTab }) {
   return (
@@ -16,13 +15,12 @@ export default function Footer({ setActiveTab }) {
               </div>
               <span className="text-lg font-bold text-white tracking-tight">NyayaPath AI</span>
             </div>
-            <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-              Civic Rights & Action Navigator converting citizens' everyday civic and legal struggles into structured understanding, verified knowledge, step-by-step action roadmaps, and formal communications.
+            <p className="text-xs text-indigo-300 font-semibold uppercase tracking-wider">
+              AI-Powered Legal & Civic Rights Navigation Platform
             </p>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800 text-xs text-indigo-300 border border-slate-700">
-              <Award className="w-3.5 h-3.5 text-amber-400" />
-              <span>OOSC 4.0 Hackathon • IIIT Allahabad • Problem Statement 3</span>
-            </div>
+            <p className="text-sm text-slate-400 max-w-md leading-relaxed">
+              Helping people understand everyday legal and civic problems through simple explanations, actionable roadmaps, relevant authorities, verified sources, and document assistance.
+            </p>
           </div>
 
           {/* Col 2 */}
@@ -56,7 +54,7 @@ export default function Footer({ setActiveTab }) {
             <ul className="space-y-2 text-sm text-slate-400">
               <li className="flex items-center gap-2">
                 <Shield className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Zero Hallucinated URLs</span>
+                <span>Source-First Guidance</span>
               </li>
               <li className="flex items-center gap-2">
                 <Shield className="w-3.5 h-3.5 text-emerald-400" />
@@ -78,14 +76,14 @@ export default function Footer({ setActiveTab }) {
         <div className="pt-8 border-t border-slate-800">
           <div className="bg-slate-800/80 rounded-xl p-4 text-xs text-slate-400 border border-slate-700 mb-6">
             <p className="leading-relaxed">
-              <strong className="text-slate-200">Disclaimer: </strong>
-              This information is for general awareness and does not replace professional legal advice. NyayaPath AI is an educational civic navigator prototype developed for the OOSC 4.0 Hackathon.
+              <strong className="text-slate-200">Legal Disclaimer: </strong>
+              NyayaPath AI provides general informational and educational guidance and does not replace professional legal advice. Laws, procedures, and authorities may vary by jurisdiction. Verify important information with official sources or a qualified professional.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-            <p>© {new Date().getFullYear()} NyayaPath AI. Built for Civic & Legal Empowerment.</p>
+            <p>© {new Date().getFullYear()} NyayaPath AI. All rights reserved.</p>
             <p className="flex items-center gap-1">
-              AI for Civic Good • Stage 1 MVP
+              Empowering Citizens with Accessible Legal Guidance
             </p>
           </div>
         </div>

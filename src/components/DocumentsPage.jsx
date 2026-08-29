@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Copy, Check, Download, Printer, Edit3, Eye, Sparkles, Shield, RotateCcw } from 'lucide-react';
 import { DEFAULT_DOCUMENT_TEMPLATE } from '../data/mockData';
+import { getDynamicClientDocument } from '../utils/dynamicAnalysis';
 
 export default function DocumentsPage({ initialContext = null }) {
   const [selectedDocType, setSelectedDocType] = useState(
@@ -18,19 +19,20 @@ export default function DocumentsPage({ initialContext = null }) {
   const fetchDocumentFromBackend = async (categoryType) => {
     setLoadingDoc(true);
     setServerError(false);
-    try {
-      const payload = {
-        category: categoryType,
-        problem: initialContext?.problem || (
-          categoryType === 'TENANCY' ? 'My landlord has not returned my ₹15,000 security deposit after I moved out.' :
-          categoryType === 'CONSUMER' ? 'I bought a defective product online and the seller has not resolved my complaint.' :
-          'I want to file an RTI to get information about government spending on road repairs in my district.'
-        ),
-        state: initialContext?.state || '',
-        city: initialContext?.city || '',
-        language: initialContext?.language || 'English'
-      };
+    
+    const payload = {
+      category: categoryType,
+      problem: initialContext?.problem || (
+        categoryType === 'TENANCY' ? 'My landlord has not returned my security deposit after I moved out.' :
+        categoryType === 'CONSUMER' ? 'I bought a defective product online and the seller has not resolved my complaint.' :
+        'I want to file an RTI to get information about government spending on road repairs in my district.'
+      ),
+      state: initialContext?.state || '',
+      city: initialContext?.city || '',
+      language: initialContext?.language || 'English'
+    };
 
+    try {
       const res = await fetch('https://nyayapath-ai-backend.onrender.com/api/generate-document', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -43,10 +45,26 @@ export default function DocumentsPage({ initialContext = null }) {
         if (data.content) setDocContent(data.content);
         setServerError(false);
       } else {
+        const localDoc = getDynamicClientDocument({
+          category: categoryType,
+          problem: payload.problem,
+          state: payload.state,
+          city: payload.city
+        });
+        if (localDoc.title) setDocTitle(localDoc.title);
+        if (localDoc.content) setDocContent(localDoc.content);
         setServerError(true);
       }
     } catch (err) {
-      console.warn('[DocumentsPage] Server connection error:', err.message);
+      console.warn('[DocumentsPage] Server connection notice, using local generator:', err.message);
+      const localDoc = getDynamicClientDocument({
+        category: categoryType,
+        problem: payload.problem,
+        state: payload.state,
+        city: payload.city
+      });
+      if (localDoc.title) setDocTitle(localDoc.title);
+      if (localDoc.content) setDocContent(localDoc.content);
       setServerError(true);
     } finally {
       setLoadingDoc(false);

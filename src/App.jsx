@@ -58,7 +58,9 @@ function App() {
               </p>
             </div>
             <RoadmapComponent 
-              onGenerateDoc={() => handleNavigateToDocs({ category: 'TENANCY' })}
+              category={docContext?.category || 'TENANCY'}
+              allowCategorySwitch={true}
+              onGenerateDoc={() => handleNavigateToDocs({ category: docContext?.category || 'TENANCY' })}
               showTitle={false}
             />
             <DisclaimerBanner compact={true} />
@@ -96,4 +98,3 @@ function App() {
 }
 
 export default App;
-

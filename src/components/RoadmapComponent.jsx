@@ -1,13 +1,52 @@
-import React, { useState } from 'react';
-import { CheckCircle2, Circle, ArrowRight, ShieldCheck, Check, RotateCcw, Sparkles, HelpCircle } from 'lucide-react';
-import { DEFAULT_ROADMAP_STEPS } from '../data/mockData';
+import React, { useState, useEffect } from 'react';
+import { 
+  CheckCircle2, 
+  Circle, 
+  ArrowRight, 
+  ShieldCheck, 
+  RotateCcw, 
+  Layers, 
+  FileText,
+  HelpCircle 
+} from 'lucide-react';
+import { CATEGORY_ROADMAPS, DEFAULT_ROADMAP_STEPS } from '../data/mockData';
 
 export default function RoadmapComponent({ 
-  initialSteps = DEFAULT_ROADMAP_STEPS, 
+  initialSteps = null,
+  category = "TENANCY",
   onGenerateDoc = null,
-  showTitle = true 
+  showTitle = true,
+  allowCategorySwitch = false
 }) {
-  const [steps, setSteps] = useState(initialSteps);
+  const [selectedCategory, setSelectedCategory] = useState(category);
+
+  // Normalize steps
+  const getStepsForCategory = (cat) => {
+    const key = (cat || "").toUpperCase();
+    if (key.includes("CONSUMER")) return CATEGORY_ROADMAPS.CONSUMER;
+    if (key.includes("RTI")) return CATEGORY_ROADMAPS.RTI;
+    if (key.includes("CIVIC") || key.includes("PUBLIC") || key.includes("GOVT")) return CATEGORY_ROADMAPS.CIVIC;
+    return CATEGORY_ROADMAPS.TENANCY;
+  };
+
+  const [steps, setSteps] = useState(() => {
+    if (initialSteps && Array.isArray(initialSteps) && initialSteps.length > 0) {
+      return initialSteps;
+    }
+    return getStepsForCategory(category);
+  });
+
+  // Sync with initialSteps if passed from outside
+  useEffect(() => {
+    if (initialSteps && Array.isArray(initialSteps) && initialSteps.length > 0) {
+      setSteps(initialSteps);
+    }
+  }, [initialSteps]);
+
+  const handleCategoryChange = (newCat) => {
+    setSelectedCategory(newCat);
+    setSteps(getStepsForCategory(newCat));
+  };
 
   const toggleStep = (id) => {
     setSteps(prev =>
@@ -22,7 +61,7 @@ export default function RoadmapComponent({
   };
 
   const completedCount = steps.filter(s => s.completed).length;
-  const progressPercentage = Math.round((completedCount / steps.length) * 100);
+  const progressPercentage = Math.round((completedCount / (steps.length || 1)) * 100);
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 sm:p-7">
@@ -56,6 +95,37 @@ export default function RoadmapComponent({
         </div>
       )}
 
+      {/* Standalone Category Selector if allowed */}
+      {allowCategorySwitch && (
+        <div className="my-4 p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center gap-3">
+          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5 shrink-0">
+            <Layers className="w-4 h-4 text-indigo-600" />
+            <span>Select Issue Roadmap:</span>
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { id: 'TENANCY', label: 'Tenancy & Housing' },
+              { id: 'CONSUMER', label: 'Consumer Protection' },
+              { id: 'RTI', label: 'Right to Information (RTI)' },
+              { id: 'CIVIC', label: 'Government & Public Services' }
+            ].map(cat => (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => handleCategoryChange(cat.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                  selectedCategory === cat.id
+                    ? 'bg-slate-900 text-white shadow-xs'
+                    : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-100'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Progress Bar */}
       <div className="my-6 p-4 rounded-xl bg-slate-50 border border-slate-200">
         <div className="flex items-center justify-between text-sm mb-2">
@@ -79,12 +149,12 @@ export default function RoadmapComponent({
       </div>
 
       {/* Step items */}
-      <div className="space-y-4">
+      <div className="space-y-3.5">
         {steps.map((step, index) => {
           const isDone = step.completed;
           return (
             <div
-              key={step.id}
+              key={step.id || index}
               onClick={() => toggleStep(step.id)}
               className={`p-4 sm:p-5 rounded-xl border transition-all cursor-pointer flex items-start gap-4 select-none ${
                 isDone
@@ -99,62 +169,53 @@ export default function RoadmapComponent({
                   e.stopPropagation();
                   toggleStep(step.id);
                 }}
-                className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center transition-colors shrink-0 ${
+                className={`mt-0.5 w-6 h-6 rounded-lg flex items-center justify-center transition-colors shrink-0 ${
                   isDone
                     ? 'bg-emerald-600 text-white'
-                    : 'border-2 border-slate-300 text-transparent hover:border-indigo-500'
+                    : 'border-2 border-slate-300 hover:border-indigo-500 bg-white'
                 }`}
-                aria-label={isDone ? 'Mark as pending' : 'Mark as completed'}
+                aria-label={`Mark step ${index + 1} as ${isDone ? 'incomplete' : 'complete'}`}
               >
-                {isDone ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : <Circle className="w-3.5 h-3.5" />}
+                {isDone ? <CheckCircle2 className="w-4 h-4" /> : <Circle className="w-4 h-4 text-slate-300" />}
               </button>
 
               {/* Step info */}
               <div className="grow">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700">
-                      Step {index + 1}
-                    </span>
-                    <h4 className={`text-base font-semibold ${isDone ? 'line-through text-slate-600' : 'text-slate-900'}`}>
-                      {step.title}
-                    </h4>
-                  </div>
-                  <span className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
-                    isDone 
-                      ? 'bg-emerald-100 text-emerald-800' 
-                      : 'bg-amber-50 text-amber-800 border border-amber-200'
-                  }`}>
-                    {isDone ? 'Completed' : 'Pending Action'}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">
+                    Step {index + 1}
                   </span>
+                  <h4 className={`text-sm sm:text-base font-bold ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
+                    {step.title}
+                  </h4>
                 </div>
-
-                <p className={`text-sm mt-1.5 leading-relaxed ${isDone ? 'text-slate-500' : 'text-slate-600'}`}>
+                <p className={`text-xs sm:text-sm mt-1.5 leading-relaxed ${isDone ? 'text-slate-500' : 'text-slate-600'}`}>
                   {step.description}
                 </p>
-
-                {/* Contextual action for step 3 */}
-                {step.id === 3 && onGenerateDoc && !isDone && (
-                  <div className="mt-3">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onGenerateDoc();
-                      }}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 transition-colors"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                      Open Document Template for this step
-                      <ArrowRight className="w-3 h-3" />
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Optional CTA to Generate Document */}
+      {onGenerateDoc && (
+        <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <span className="text-xs text-slate-500">
+            Need a pre-drafted representation for Step 3?
+          </span>
+          <button
+            type="button"
+            onClick={onGenerateDoc}
+            className="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5 self-start sm:self-auto cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            Generate Pre-Drafted Notice
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
     </div>
   );
 }

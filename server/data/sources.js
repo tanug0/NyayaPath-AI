@@ -40,10 +40,10 @@ export const VERIFIED_SOURCES = {
       jurisdictionLevel: "All India (National)"
     },
     {
-      title: "e-Daakhil Portal — Consumer Commission E-Filing",
+      title: "e-Jagriti Portal — Consumer Commission E-Filing",
       description: "Official digital filing system established under the Consumer Protection Act, 2019 for filing formal consumer complaints online before District/State Commissions.",
       type: "Central/National law",
-      url: "https://edaakhil.nic.in",
+      url: "https://e-jagriti.gov.in",
       verified: true,
       jurisdictionLevel: "District / State / National Commissions"
     },

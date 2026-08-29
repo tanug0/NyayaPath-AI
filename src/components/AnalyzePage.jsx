@@ -22,15 +22,15 @@ import {
 import { 
   INDIAN_STATES, 
   EXAMPLE_PROBLEMS, 
-  MOCK_ANALYSIS_RESULT, 
   DEFAULT_ROADMAP_STEPS 
 } from '../data/mockData';
+import { getDynamicClientAnalysis } from '../utils/dynamicAnalysis';
 import RoadmapComponent from './RoadmapComponent';
 import DisclaimerBanner from './DisclaimerBanner';
 
 export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, onNavigateToSources }) {
   // Primary demo pre-loaded
-  const [problemText, setProblemText] = useState("My landlord has not returned my ₹15,000 security deposit after I moved out.");
+  const [problemText, setProblemText] = useState("My landlord has not returned my security deposit after I moved out.");
   const [selectedState, setSelectedState] = useState("Uttar Pradesh");
   const [selectedCity, setSelectedCity] = useState("Prayagraj (Allahabad)");
   const [language, setLanguage] = useState("English");
@@ -39,7 +39,15 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
   const [hasAnalyzed, setHasAnalyzed] = useState(true);
   const [connectionError, setConnectionError] = useState(false);
 
-  const [analysisData, setAnalysisData] = useState(MOCK_ANALYSIS_RESULT);
+  // Dynamic analysis data initialized
+  const [analysisData, setAnalysisData] = useState(() => 
+    getDynamicClientAnalysis({
+      problem: "My landlord has not returned my security deposit after I moved out.",
+      state: "Uttar Pradesh",
+      city: "Prayagraj (Allahabad)",
+      language: "English"
+    })
+  );
   const [isFallbackMode, setIsFallbackMode] = useState(true);
 
   const handleExampleSelect = (ex) => {
@@ -74,14 +82,26 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
         setIsFallbackMode(Boolean(data.isFallback));
         setConnectionError(false);
       } else {
-        // Safe local fallback
-        setAnalysisData(MOCK_ANALYSIS_RESULT);
+        // Dynamic client-side fallback
+        const dynamicFallback = getDynamicClientAnalysis({
+          problem: problemText.trim(),
+          state: selectedState,
+          city: selectedCity,
+          language
+        });
+        setAnalysisData(dynamicFallback);
         setIsFallbackMode(true);
         setConnectionError(true);
       }
     } catch (err) {
-      console.warn('[AnalyzePage] Connection notice:', err.message);
-      setAnalysisData(MOCK_ANALYSIS_RESULT);
+      console.warn('[AnalyzePage] Connection notice, using dynamic client engine:', err.message);
+      const dynamicFallback = getDynamicClientAnalysis({
+        problem: problemText.trim(),
+        state: selectedState,
+        city: selectedCity,
+        language
+      });
+      setAnalysisData(dynamicFallback);
       setIsFallbackMode(true);
       setConnectionError(true);
     } finally {
@@ -106,7 +126,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
 
   const formattedJurisdiction = (selectedState || selectedCity)
     ? `Jurisdiction: ${[selectedState, selectedCity].filter(Boolean).join(' • ')}`
-    : 'Jurisdiction: Not specified';
+    : 'Jurisdiction: National / Not specified';
 
   return (
     <div className="space-y-8">
@@ -117,7 +137,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
           <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">
             AI Civic Diagnostic
           </span>
-          <span className="text-xs text-slate-500 font-medium">Stage 3 • Live API & Fallback Integrated</span>
+          <span className="text-xs text-slate-500 font-medium">National Jurisdiction-Aware Diagnostic Engine</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-2">
           Analyze Your Civic or Legal Problem
@@ -172,7 +192,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
             rows={4}
             value={problemText}
             onChange={(e) => setProblemText(e.target.value)}
-            placeholder="e.g. My landlord has not returned my ₹15,000 security deposit after I moved out and handed over keys..."
+            placeholder="e.g. Describe the dispute, transaction, timeline, or issue in your own words..."
             className="w-full text-sm sm:text-base bg-slate-50 border border-slate-300 rounded-xl p-3.5 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all leading-relaxed"
             required
           />
@@ -209,7 +229,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
               type="text"
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
-              placeholder="e.g. Prayagraj, Pune, Bengaluru"
+              placeholder="e.g. Prayagraj, Pune, Bengaluru, New Delhi"
               className="w-full text-sm bg-slate-50 border border-slate-300 rounded-lg px-3 py-2.5 text-slate-800 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
             />
           </div>
@@ -263,7 +283,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
           <ServerOff className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
           <div>
             <strong>Service Notice: </strong>
-            Unable to connect to the analysis service. Please make sure the NyayaPath AI server is running. Using local curated knowledge base for this response.
+            Backend connection offline. Generated dynamic jurisdiction-aware analysis using the local statutory knowledge base.
           </div>
         </div>
       )}
@@ -326,7 +346,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
                 <AlertCircle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                 <div>
                   <strong>Jurisdiction Notice: </strong>
-                  Tenancy rules, consumer forums, and escalation routes depend on jurisdiction. {analysisData.jurisdiction?.note || "Please verify with local state authorities."}
+                  The applicable authority and procedure may vary based on jurisdiction and the specific facts of the matter. {analysisData.jurisdiction?.note || "Please verify with local official sources."}
                 </div>
               </div>
 
@@ -414,7 +434,11 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
                         <span className="inline-flex items-center gap-1 text-[11px] text-emerald-700 font-medium bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                           <ShieldCheck className="w-3 h-3" /> Source Verified
                         </span>
-                      ) : null}
+                      ) : (
+                        <span className="text-[11px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                          Verification Recommended
+                        </span>
+                      )}
                     </div>
                     <h5 className="text-xs font-bold text-slate-900">{src.title}</h5>
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed">{src.description}</p>
@@ -431,7 +455,7 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
                         Visit Official Portal <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : (
-                      <span className="text-[11px] text-slate-400 italic">Statutory Reference</span>
+                      <span className="text-[11px] text-slate-500 italic">Verified source unavailable — authority verification required.</span>
                     )}
                   </div>
                 </div>
@@ -442,7 +466,8 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
           {/* 5. Action Roadmap Component */}
           <RoadmapComponent 
             key={analysisData.category}
-            initialSteps={analysisData.actionRoadmap || DEFAULT_ROADMAP_STEPS} 
+            initialSteps={analysisData.actionRoadmap || DEFAULT_ROADMAP_STEPS}
+            category={analysisData.category}
             onGenerateDoc={() => onNavigateToDocs({
               problem: problemText,
               category: analysisData.category,
@@ -497,10 +522,10 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
               </div>
             </div>
 
-            {/* Authority Fallback Notice */}
+            {/* Authority Fallback / Verification Notice */}
             <div className="p-3.5 bg-amber-50/90 rounded-xl border border-amber-200 text-xs text-amber-900">
               <strong>Jurisdiction Guidance: </strong>
-              {analysisData.authority?.fallbackMessage || "Jurisdiction-specific authority information is not available in the current knowledge base. Please verify with the relevant official state/local authority."}
+              {analysisData.authority?.fallbackMessage || "The applicable authority and procedure may vary based on jurisdiction and the specific facts of the matter. Please verify with the relevant official state/local authority."}
             </div>
           </div>
 
@@ -511,6 +536,8 @@ export default function AnalyzePage({ onNavigateToDocs, onNavigateToAuthority, o
               <p className="text-xs text-indigo-800">
                 {analysisData.category?.toLowerCase().includes('rti') 
                   ? 'Generate your pre-drafted Section 6(1) RTI application now.' 
+                  : analysisData.category?.toLowerCase().includes('consumer')
+                  ? 'Generate your pre-litigation consumer demand notice now.'
                   : 'Generate and customize your pre-litigation demand document now.'}
               </p>
             </div>

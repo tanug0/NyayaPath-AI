@@ -321,9 +321,9 @@ export const getFallbackAnalysis = ({ problem = "", state = "", city = "", langu
     const relevantInformation = [
       {
         label: lang === "Hindi" ? "मांग नोटिस की आवश्यकता" : lang === "Hinglish" ? "Notice Requirement" : "Notice Requirement",
-        detail: lang === "Hindi" ? "कानूनी या प्रशासनिक शिकायत से पूर्व 7 से 14 दिनों की समयसीमा वाला औपचारिक लिखित नोटिस देना मानक प्रक्रिया है।" :
-                lang === "Hinglish" ? "Kisi bhi legal step se pehle 7-14 days ka formal demand notice bhejna standard practice hai." :
-                "A formal written notice giving a 7 to 14 day deadline is standard prior to any legal or authority escalation."
+        detail: lang === "Hindi" ? "लागू क्षेत्राधिकार और मामले के अनुसार विधिक शिकायत से पूर्व औपचारिक लिखित नोटिस देना मानक प्रक्रिया है।" :
+                lang === "Hinglish" ? "Relevant jurisdiction aur matter ke according legal escalation se pehle formal written notice dena standard practice hai." :
+                "Follow the applicable notice requirements for the relevant jurisdiction and matter prior to formal legal escalation."
       },
       {
         label: lang === "Hindi" ? "अनुमेय कटौतियां" : lang === "Hinglish" ? "Permissible Deductions" : "Permissible Deductions",
@@ -351,17 +351,17 @@ export const getFallbackAnalysis = ({ problem = "", state = "", city = "", langu
       {
         id: 2,
         title: lang === "Hindi" ? "संबंधित पक्ष से लिखित संपर्क करें" : lang === "Hinglish" ? "Landlord ko written reminder bhejein" : "Contact the concerned party",
-        description: lang === "Hindi" ? "मकान मालिक को चाबी सौंपने की तारीख का हवाला देते हुए 3-5 दिनों में भुगतान विवरण का विनम्र स्मरण पत्र भेजें।" :
-                      lang === "Hinglish" ? "Handover date ka reference dete hue WhatsApp ya email reminder bhejein aur 3-5 days mein refund details mangein." :
-                      "Send a polite, documented verbal or WhatsApp reminder referencing the handover date and requesting transaction details within 3-5 days.",
+        description: lang === "Hindi" ? "मकान मालिक को चाबी सौंपने की तारीख का हवाला देते हुए उचित समयसीमा में समाधान का विनम्र स्मरण पत्र भेजें।" :
+                      lang === "Hinglish" ? "Handover date ka reference dete hue WhatsApp ya email reminder bhejein aur reasonable period mein refund details mangein." :
+                      "Send a polite, documented verbal or written request referencing the handover date and requesting transaction details within a reasonable period, where appropriate.",
         completed: false
       },
       {
         id: 3,
-        title: lang === "Hindi" ? "औपचारिक लिखित मांग पत्र (Demand Notice) भेजें" : lang === "Hinglish" ? "Formal Written Demand Notice bhejein" : "Send a written request",
-        description: lang === "Hindi" ? "स्पीड पोस्ट (AD सहित) या पंजीकृत ईमेल द्वारा 7-14 दिनों की समयसीमा वाला औपचारिक मांग नोटिस भेजें।" :
-                      lang === "Hinglish" ? "Speed Post with AD ya registered email se formal demand notice bhejein jisme 7-14 days ki final deadline mentioned ho." :
-                      "Deliver a formal demand notice via Speed Post with AD or registered email specifying the refund amount and a 7-14 day deadline.",
+        title: lang === "Hindi" ? "औपचारिक लिखित नोटिस भेजें" : lang === "Hinglish" ? "Formal Written Notice bhejein" : "Send a written request",
+        description: lang === "Hindi" ? "स्पीड पोस्ट या पंजीकृत ईमेल द्वारा लागू क्षेत्राधिकार और मामले के अनुसार औपचारिक नोटिस भेजें।" :
+                      lang === "Hinglish" ? "Speed Post with AD ya registered email se applicable notice requirements follow karte hue formal notice bhejein." :
+                      "Deliver a formal written notice via Speed Post with AD or registered email following the applicable notice requirements for the relevant jurisdiction and matter.",
         completed: false
       },
       {
@@ -375,9 +375,9 @@ export const getFallbackAnalysis = ({ problem = "", state = "", city = "", langu
       {
         id: 5,
         title: lang === "Hindi" ? "प्राधिकरण में शिकायत या मध्यस्थता का विकल्प चुनें" : lang === "Hinglish" ? "Authority escalation explore karein" : "Explore appropriate escalation options",
-        description: lang === "Hindi" ? "यदि तय समय में रिफंड न मिले, तो स्थानीय किराया प्राधिकरण / एसडीएम या जिला विधिक सेवा प्राधिकरण (DLSA) में आवेदन करें।" :
-                      lang === "Hinglish" ? "Agar refund na mile, toh local Rent Authority / SDM Court ya District Legal Services Authority (DLSA) se mediation ke liye contact karein." :
-                      "If unrefunded, file a petition before the local Rent Authority / Sub-Divisional Magistrate or approach the District Legal Services Authority (DLSA) for mediation.",
+        description: lang === "Hindi" ? "यदि समाधान न हो, तो स्थानीय किराया प्राधिकरण / सक्षम मंच या जिला विधिक सेवा प्राधिकरण (DLSA) में आवेदन करें।" :
+                      lang === "Hinglish" ? "Agar resolve na ho, toh local Rent Authority ya District Legal Services Authority (DLSA) se mediation ke liye contact karein." :
+                      "If unresolved, file a petition before the designated local Rent Authority or approach the District Legal Services Authority (DLSA) for mediation.",
         completed: false
       }
     ];
@@ -795,13 +795,13 @@ export const getFallbackAnalysis = ({ problem = "", state = "", city = "", langu
       {
         id: 2,
         title: lang === "Hindi" ? "अनौपचारिक स्मरण पत्र भेजें" : lang === "Hinglish" ? "Informal reminder communicate karein" : "Send an informal written reminder",
-        description: lang === "Hindi" ? "विपक्षी पक्ष को समस्या का संक्षिप्त विवरण देते हुए 3-5 दिनों में समाधान का अनुरोध करें।" : lang === "Hinglish" ? "Opposite party ko WhatsApp ya email se resolve karne ka reminder dein." : "Reach out via email or message requesting prompt resolution within 3-5 business days.",
+        description: lang === "Hindi" ? "विपक्षी पक्ष को समस्या का संक्षिप्त विवरण देते हुए उचित समयसीमा में समाधान का अनुरोध करें।" : lang === "Hinglish" ? "Opposite party ko WhatsApp ya email se reasonable period mein resolve karne ka reminder dein." : "Reach out via email or message requesting prompt resolution within a reasonable period, where appropriate.",
         completed: false
       },
       {
         id: 3,
         title: lang === "Hindi" ? "औपचारिक मांग पत्र (Demand Notice) प्रेषित करें" : lang === "Hinglish" ? "Formal demand notice serve karein" : "Serve a formal written representation",
-        description: lang === "Hindi" ? "स्पीड पोस्ट (AD सहित) द्वारा 15 दिनों की समयसीमा वाला औपचारिक पत्र भेजें।" : lang === "Hinglish" ? "Speed Post se 15-day deadline ka formal written demand letter bhejein." : "Send a formal notice giving a clear 15-day deadline via Speed Post with AD.",
+        description: lang === "Hindi" ? "स्पीड पोस्ट (AD सहित) द्वारा लागू क्षेत्राधिकार और प्रक्रिया के अनुसार औपचारिक पत्र भेजें।" : lang === "Hinglish" ? "Speed Post se applicable notice requirements follow karte hue formal written demand letter bhejein." : "Send a formal written notice following the applicable notice requirements for the relevant jurisdiction and matter.",
         completed: false
       },
       {

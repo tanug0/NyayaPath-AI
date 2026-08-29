@@ -14,62 +14,50 @@ Instead of searching through complex legal information and multiple government p
 
 🌐 **[Visit NyayaPath AI](https://nyayapath-ai.vercel.app/)**
 
-## 🎥 Demo Video
-
-▶️ **[Watch Hackathon Demo](https://youtu.be/yBD66sQQrSs?si=VrP-qkCw_ABQ8Fj_)**
-
 ## 📂 GitHub Repository
 
 🔗 **[NyayaPath AI – GitHub](https://github.com/tanug0/NyayaPath-AI)**
 
----
+## 📌 Project Status
 
-## 👥 Team
+NyayaPath AI is an evolving prototype focused on making civic and legal information more understandable, actionable, and jurisdiction-aware.
 
-### Team Name: NexaMind
+The current implementation demonstrates AI-assisted problem analysis, action roadmaps, authority guidance, verified-source discovery, fallback support, and document assistance.
 
-- **Tanu Gupta** — Team Leader
-- **Taru Srivastava** — Team Member
-- **Tarun Srivastava** — Team Member
+The architecture is designed to support additional problem categories, jurisdictions, authorities, sources, and document workflows over time.
 
----
-
-## 🏆 Hackathon
-
-**OOSC 4.0 Hackathon**
-
-**Problem Statement:** AI for Civic and Legal Empowerment
-
-NyayaPath AI is a functional MVP developed to improve citizens' access to understandable, actionable and source-supported civic and legal guidance.
 
 ---
 
-# 🚨 Problem Statement
+# 🚨 Problem 
 
 For many citizens, accessing legal and civic information is difficult because:
 
-- Legal language is complex and difficult to understand.
-- People often do not know which authority or department to approach.
-- Finding the correct next step may require searching through multiple sources.
+- Legal language is often complex and difficult to understand.
+- People may not know which authority, department, forum, or channel to approach.
+- Relevant information is distributed across multiple government and legal sources.
 - Citizens may not know what documents or evidence they should prepare.
-- Relevant legal and civic information is fragmented across different platforms.
-- Language barriers make legal information less accessible.
+- Finding information does not always explain the practical next step.
+- Procedures and authorities may vary depending on the jurisdiction.
+- Language barriers can make formal legal information less accessible.
 
-This creates a gap between:
+This creates a major gap between:
 
-> **“I have a problem” → “I know exactly what to do next.”**
+> **Understanding a problem**  
+> and  
+> **Knowing the appropriate next action.**
 
-NyayaPath AI aims to bridge this gap.
+NyayaPath AI aims to reduce this gap through a structured, action-oriented guidance workflow.
 
 ---
 
-# 💡 Our Solution
+# 💡 Solution
 
 NyayaPath AI converts a citizen's problem into a structured and actionable guidance path.
 
 ### User Journey
 
-**Describe Problem → AI Analysis → Category Detection → Problem Explanation → Action Roadmap → Authority Identification → Supporting Sources → Document Assistance**
+**Describe Problem → AI Analysis → Category Detection → Jurisdiction Context → Problem Explanation → Action Roadmap → Authority Identification → Supporting Sources → Document Assistance**
 
 The platform is designed to make civic and legal guidance:
 
@@ -120,7 +108,7 @@ It provides a structured, step-by-step roadmap so users can understand:
 - Which authority to approach
 - What action can be taken next
 
-The current prototype presents a **5-step pre-litigation action roadmap**.
+The current prototype provides a structured, step-by-step action roadmap for supported problem categories.
 
 ---
 
@@ -132,22 +120,26 @@ This reduces the uncertainty of:
 
 > **“Where should I complain?”**
 
-The prototype also provides jurisdiction/context fields such as state and city.
+The prototype uses jurisdiction/context fields such as State/UT and City/District to support jurisdiction-aware guidance.
+
+The authority-matching architecture is designed to support configurable mappings across different jurisdictions rather than assuming a single state or city.
 
 ---
 
 ## 📚 Verified Sources Directory
 
-The platform provides supporting civic and legal sources related to the generated guidance.
+The platform provides available verified or official sources related to the generated guidance.
 
-The prototype includes sources such as:
+The prototype demonstrates source support through resources such as:
 
-- National Consumer Helpline
-- RTI Online Portal
-- National Legal Services Authority
-- CPGRAMS
-- Model Tenancy Act reference
-- e-Daakhil Portal
+- Government portals
+- Official judiciary resources
+- National and State grievance platforms
+- Legal-aid resources
+- Consumer grievance resources
+- RTI resources
+- Applicable legal and regulatory frameworks
+- Other verified public sources
 
 This allows users to explore the underlying information instead of relying only on an AI-generated response.
 
@@ -157,11 +149,13 @@ This allows users to explore the underlying information instead of relying only 
 
 NyayaPath AI can generate structured formal documents based on the user's problem.
 
-The current prototype demonstrates document assistance for scenarios such as:
+The current prototype demonstrates document assistance for supported civic and legal scenarios, including examples such as:
 
-- Tenant security deposit demand
-- Consumer grievance notice
-- RTI Section 6(1) application
+- Tenant-related communication
+- Consumer grievance notices
+- RTI applications
+
+**Document templates and supported scenarios can be expanded as the platform evolves.**
 
 Users can:
 
@@ -186,14 +180,14 @@ This improves accessibility for users who may not be comfortable with formal leg
 
 ---
 
-## 📍 Location-Aware Guidance
+## 📍 Jurisdiction-Aware Guidance
 
 Users can provide:
 
 - State / Union Territory
 - City / District
 
-This allows the system to consider the user's location while generating relevant guidance and identifying appropriate authorities.
+This allows the system to consider the selected jurisdiction while generating relevant guidance and identifying potentially appropriate authorities.
 
 ---
 
@@ -211,6 +205,8 @@ This improves prototype reliability and user experience.
 
 The platform clearly communicates that its output is informational guidance and should not be treated as professional legal advice.
 
+Applicable authorities, procedures and legal frameworks may vary based on jurisdiction and the specific facts of the matter.
+
 Users are encouraged to verify important legal information and consult a qualified professional where necessary.
 
 ---
@@ -218,10 +214,10 @@ Users are encouraged to verify important legal information and consult a qualifi
 # 🔄 Core Workflow
 
 1. **User describes a civic/legal problem**
-2. **System captures context such as category, state, city and language**
+2. **System captures context such as category, State/UT, City/District and language**
 3. **AI analyzes and categorizes the problem**
 4. **Relevant information is converted into simple language**
-5. **A structured 5-step action roadmap is generated**
+5. **A structured, jurisdiction-aware action roadmap is generated**
 6. **Relevant authorities and escalation channels are identified**
 7. **Supporting sources are presented**
 8. **A formal document can be generated**
@@ -234,61 +230,129 @@ This transforms a fragmented information-search process into a guided action jou
 # 🏗️ System Architecture
 
 ```text
-                         ┌─────────────────────────┐
-                         │       USER INPUT        │
-                         │                         │
-                         │ Problem + Language      │
-                         │ State + City            │
-                         └────────────┬────────────┘
-                                      │
-                                      ▼
-                         ┌─────────────────────────┐
-                         │     REACT FRONTEND      │
-                         │        + VITE            │
-                         │                         │
-                         │ User Interface           │
-                         │ Analysis UI              │
-                         │ Roadmap UI               │
-                         │ Authority Finder         │
-                         │ Documents UI             │
-                         └────────────┬────────────┘
-                                      │
-                                      │ REST API
-                                      ▼
-                         ┌─────────────────────────┐
-                         │    EXPRESS BACKEND      │
-                         │                         │
-                         │       REST APIs         │
-                         └────────────┬────────────┘
-                                      │
-                         ┌────────────┴────────────┐
-                         │                         │
-                         ▼                         ▼
-              ┌─────────────────────┐   ┌─────────────────────┐
-              │     AI SERVICE      │   │   FALLBACK SYSTEM   │
-              │                     │   │                     │
-              │ Problem Analysis    │   │ Predefined          │
-              │ Structured Output   │   │ Guidance            │
-              │ Document Generation │   │                     │
-              └──────────┬──────────┘   └──────────┬──────────┘
-                         │                         │
-                         └────────────┬────────────┘
-                                      ▼
-                         ┌─────────────────────────┐
-                         │   STRUCTURED RESPONSE   │
-                         │                         │
-                         │ • Category              │
-                         │ • Summary               │
-                         │ • Action Roadmap        │
-                         │ • Authorities            │
-                         │ • Sources                │
-                         │ • Document Assistance    │
-                         └────────────┬────────────┘
-                                      │
-                                      ▼
-                         ┌─────────────────────────┐
-                         │     USER INTERFACE      │
-                         │                         │
-                         │ Clear, actionable and   │
-                         │ accessible guidance     │
-                         └─────────────────────────┘
+┌──────────────────────────────────────────────┐
+│                  USER INPUT                  │
+│                                              │
+│  Problem + Category + Language               │
+│  State / UT + City / District                │
+└──────────────────────┬───────────────────────┘
+                       │
+                       ▼
+┌──────────────────────────────────────────────┐
+│              REACT + VITE FRONTEND           │
+│                                              │
+│  • User Interface                            │
+│  • Problem Analysis                          │
+│  • Roadmap                                   │
+│  • Authority Finder                          │
+│  • Verified Sources                          │
+│  • Documents                                 │
+└──────────────────────┬───────────────────────┘
+                       │
+              ┌────────┴────────┐
+              │                 │
+              ▼                 ▼
+┌──────────────────────┐  ┌──────────────────────┐
+│    EXPRESS BACKEND   │  │  CLIENT-SIDE LOGIC   │
+│                      │  │                      │
+│    REST APIs         │  │  Dynamic Analysis    │
+│    AI Requests       │  │  Jurisdiction Logic │
+│    Server Services   │  │  Fallback Guidance  │
+└──────────┬───────────┘  └──────────┬───────────┘
+           │                         │
+           ▼                         │
+┌──────────────────────┐             │
+│      AI SERVICE      │             │
+│                      │             │
+│ • Problem Analysis   │             │
+│ • Categorization     │             │
+│ • Structured Output  │             │
+│ • Roadmap Generation │             │
+│ • Document Assistance│             │
+└──────────┬───────────┘             │
+           │                         │
+           └────────────┬────────────┘
+                        ▼
+┌──────────────────────────────────────────────┐
+│       JURISDICTION-AWARE PROCESSING          │
+│                                              │
+│  Problem Category + State/UT + City/District │
+│                    ↓                         │
+│          Configurable Mappings               │
+│                    ↓                         │
+│       Relevant Authority / Framework         │
+└──────────────────────┬───────────────────────┘
+                       │
+                       ▼
+┌──────────────────────────────────────────────┐
+│            STRUCTURED RESPONSE               │
+│                                              │
+│  • Problem Category                          │
+│  • Problem Summary                           │
+│  • Action Roadmap                            │
+│  • Relevant Authority / Channel              │
+│  • Applicable Framework                      │
+│  • Verified / Official Sources               │
+│  • Document Assistance                       │
+└──────────────────────┬───────────────────────┘
+                       │
+                       ▼
+┌──────────────────────────────────────────────┐
+│                 USER OUTPUT                  │
+│                                              │
+│  Clear • Actionable • Accessible Guidance    │
+│                                              │
+│  Understand → Identify → Act → Escalate      │
+└──────────────────────────────────────────────┘
+
+
+# 🧩 Technology Stack
+
+## Frontend
+
+- React.js
+- Vite
+- Tailwind CSS
+- Lucide React
+
+## Backend
+
+- Node.js
+- Express.js
+- REST APIs
+- CORS
+- Environment-based configuration
+
+## AI & Intelligence Layer
+
+- Natural-language problem analysis
+- Problem categorization
+- Structured response generation
+- Action-roadmap generation
+- Document-generation assistance
+- Jurisdiction-aware mappings
+
+## Reliability
+
+- AI-service fallback
+- Predefined guidance
+- Jurisdiction verification fallback
+- Informational-use disclaimer
+
+
+# 🚀 Future Scope
+
+Potential future enhancements include:
+
+- Expanded India-wide jurisdiction mappings
+- More verified government-source integrations
+- Real-time source validation
+- Additional regional languages
+- Voice-based problem input
+- Improved accessibility features
+- Personalized action tracking
+- Secure document storage
+- More document templates
+- Authority/contact verification
+- Advanced escalation workflows
+- Mobile application support

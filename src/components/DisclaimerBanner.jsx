@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, ShieldCheck } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 export default function DisclaimerBanner({ compact = false }) {
   if (compact) {
@@ -7,7 +7,7 @@ export default function DisclaimerBanner({ compact = false }) {
       <div className="bg-amber-50 border-l-4 border-amber-500 p-3 rounded-r-md text-xs text-amber-900 flex items-start gap-2">
         <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
         <span>
-          <strong>Legal Disclaimer:</strong> This information is for general awareness and does not replace professional legal advice.
+          <strong>Legal Disclaimer:</strong> NyayaPath AI provides general informational and educational guidance and does not replace professional legal advice. Laws, procedures, and authorities may vary by jurisdiction.
         </span>
       </div>
     );
@@ -20,8 +20,8 @@ export default function DisclaimerBanner({ compact = false }) {
           <AlertTriangle className="w-5 h-5 text-amber-700" />
         </div>
         <div className="text-sm text-amber-900 leading-relaxed">
-          <span className="font-semibold block sm:inline">Statutory Notice & Civic Disclaimer: </span>
-          This information is for general awareness and does not replace professional legal advice. Rules, administrative procedures, and authority jurisdictions may vary across states and local districts.
+          <span className="font-semibold block sm:inline">Legal Disclaimer: </span>
+          NyayaPath AI provides general informational and educational guidance and does not replace professional legal advice. Laws, procedures, and authorities may vary by jurisdiction. Verify important information with official sources or a qualified professional.
         </div>
       </div>
     </div>

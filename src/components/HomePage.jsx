@@ -92,16 +92,16 @@ export default function HomePage({ onStartAnalyze, onNavigateTab }) {
 
   const whyPoints = [
     {
-      title: "Bridging the Civic Information Asymmetry",
-      desc: "Citizens often give up legitimate deposits and claims due to confusing procedures and intimidating legal terminology."
+      title: "Clear Procedural Guidance",
+      desc: "Reduces confusion around legal and civic procedures by translating complex rules into straightforward explanations."
     },
     {
-      title: "Pre-Litigation First Approach",
-      desc: "90% of disputes can be resolved or settled faster with documented evidence and formal notice before entering court."
+      title: "Practical Next Steps & Evidence",
+      desc: "Helps users identify their next concrete action, organize necessary facts and evidence, and draft formal notices."
     },
     {
-      title: "Strict Accuracy & Safety Standard",
-      desc: "Never invents fake government websites or misleads citizens on state-specific enactments."
+      title: "Connecting Relevant Authorities",
+      desc: "Directs citizens to designated administrative forums and grievance channels with verified sources and jurisdiction awareness."
     }
   ];
 
@@ -116,10 +116,10 @@ export default function HomePage({ onStartAnalyze, onNavigateTab }) {
 
         <div className="relative max-w-4xl mx-auto text-center space-y-6 sm:space-y-8">
           
-          {/* Hackathon Badge */}
+          {/* Universal Product Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs text-indigo-200 backdrop-blur-xs">
-            <Award className="w-3.5 h-3.5 text-amber-400" />
-            <span>OOSC 4.0 • IIIT Allahabad • Problem Statement 3</span>
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>AI-Powered Legal & Civic Guidance</span>
           </div>
 
           {/* Main Headline */}
@@ -132,7 +132,7 @@ export default function HomePage({ onStartAnalyze, onNavigateTab }) {
 
           {/* Subheading */}
           <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
-            AI-powered civic guidance that turns complex information into clear, actionable steps.
+            AI-powered guidance that turns complex legal and civic problems into clear, practical, step-by-step actions.
           </p>
 
           {/* Primary Call to Action */}
@@ -158,7 +158,7 @@ export default function HomePage({ onStartAnalyze, onNavigateTab }) {
           <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs text-slate-300">
             <div className="flex items-center justify-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Zero Fake Links</span>
+              <span>Verified Official Sources</span>
             </div>
             <div className="flex items-center justify-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
@@ -226,7 +226,7 @@ export default function HomePage({ onStartAnalyze, onNavigateTab }) {
             Key Features of NyayaPath AI
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-2">
-            Built specifically for Indian citizens navigating consumer, tenancy, and civic authorities.
+            Designed to help people understand everyday legal and civic issues in simple, actionable language.
           </p>
         </div>
 
@@ -273,7 +273,7 @@ export default function HomePage({ onStartAnalyze, onNavigateTab }) {
                   onClick={onStartAnalyze}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all inline-flex items-center gap-2 cursor-pointer"
                 >
-                  Try the Demo Intake
+                  Start Problem Analysis
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
